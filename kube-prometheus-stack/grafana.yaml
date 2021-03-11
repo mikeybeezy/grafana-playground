@@ -1,0 +1,132 @@
+grafana:
+  enabled: true
+  defaultDashboardsEnabled: false
+  plugins:
+    - pierosavi-imageit-panel
+    - agenty-flowcharting-panel
+  persistence:
+    type: pvc
+    enabled: enabled
+    # storageClassName: default
+    accessModes:
+      - ReadWriteOnce
+    size: 10Gi
+    # annotations: {}
+    finalizers:
+      - kubernetes.io/pvc-protection
+    # subPath: ""
+    # existingClaim:
+
+  sidecar:
+    # dashboards:
+    #   enabled: true
+    #   SCProvider: true
+      # speed-limit-service:
+      #   speed-limit-service-dashboards:
+      #   foldersFromFilesStructure: true
+      #   datasource: Prometheus
+      #   orgid: 1
+      #   type: file
+  
+
+    # dashboards:
+    #   enabled: true
+    #   SCProvider: true
+    #   folderAnnotation: 
+    #     k8s-sidecar-target-directory: /Users/michaelbabatunde/Documents/playground_repo/kube-prometheus-stack/dashboards/
+    #   defaultFolderName: dashboards/
+    #   speed-limit-service-provider:
+    #     speed-limit-dhboardas:
+    #       # This is a path to a file inside the dashboards directory inside the chart directory
+    #       # file: dashboards/MongoDB_Overview.json
+    #       type: file
+    #       foldersFromFilesStructure: true
+    dashboards:
+      enabled: true
+      default:
+        local-dashboard:
+          url: https://example.com/repository/test.json
+        local-dashboard-base64:
+          url: https://example.com/repository/test-b64.json
+          b64content: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+    - name: 'default'
+      orgId: 1
+      folder: ''
+      type: file
+      disableDeletion: false
+      editable: true
+      options:
+        path: /var/lib/grafana/dashboards/default
+
+# dashboardsConfigMaps:
+#   speed-limit-service-provider: "speed-limit-dashboard"
+
+# dashboardProviders:
+#   dashboardproviders.yaml:
+#     apiVersion: 1
+#     providers:
+#     - name: speed-limit-service
+#       # orgId: 1
+#       # type: file
+#       # disableDeletion: false
+#       # editable: true
+#       options:
+#         # path: /var/lib/grafana/dashboards
+#         path: /Users/michaelbabatunde/Documents/playground_repo/kube-prometheus-stack/dashboards/
+#         foldersFromFilesStructure: true
+
+
+# dashboardProviders: {}
+# #  dashboardproviders.yaml:
+# #    apiVersion: 1
+# #    providers:
+# #    - name: 'default'
+# #      orgId: 1
+# #      folder: ''
+# #      type: file
+# #      disableDeletion: false
+# #      editable: true
+# #      options:
+# #        path: /var/lib/grafana/dashboards/default
+
+# https://git.app.uib.no/caleno/helm-charts/blob/f5a751f174263971fafd21eee4e35416d6612a3d/stable/grafana/values.yaml
+
+
+# grafana:
+#   enabled: true
+#   ingress:
+#     enabled: disabled
+#   service:
+#     type: ClusterIP
+#     port: 3000
+#     targetPort: 3000
+#     annotations: {}
+#     labels: {}
+#     portName: service
+#   sidecar:
+#     dashboards:
+#       enabled: true
+#       SCProvider: true
+#       label: grafana_dashboard
+#       folder: /tmp/dashboards
+#       defaultFolderName: null
+#       searchNamespace: ALL
+#       folderAnnotation: null
+#       provider:
+#         name: sidecarProvider
+#         orgid: 1
+#         folder: ''
+#         type: file
+#         disableDelete: false
+#         allowUiUpdates: true
+#         foldersFromFilesStructure: false
+#     datasources:
+#       enabled: true
+#       label: grafana_datasource
+#       searchNamespace: ALL
+

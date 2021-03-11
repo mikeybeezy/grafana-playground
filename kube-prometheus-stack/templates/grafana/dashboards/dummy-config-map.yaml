@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: all-nodes-dashboard
+  labels:
+    app: {{ template "grafana.name" . }}
+    chart: {{ template "grafana.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+{{ (.Files.Glob "/Users/michaelbabatunde/Documents/playground_repo/kube-prometheus-stack/templates/dashboards-2/all-nodes_rev1.json").AsConfig | indent 2 }}
